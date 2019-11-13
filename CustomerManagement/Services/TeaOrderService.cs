@@ -23,6 +23,7 @@ namespace CustomerManagement.Services
         {
             TeaOrder orderModel = new TeaOrder();
             orderModel = _mapper.Map<TeaOrder>(order);
+            orderModel.TeaOrderTeas = order.TeaIds.ToList().Select(x => new TeaOrderTea { TeaOrderId = orderModel.Id, TeaId = x }).ToList();
             return _repo.AddOrder(orderModel);
         }
 
@@ -48,10 +49,16 @@ namespace CustomerManagement.Services
                 Id = t.Id,
                 Name = t.Name,
                 Customer = t.Customer,
-                TotalPrice = t.TotalPrice
+                TotalPrice = t.TotalPrice,
+                TeaOrderTeas = t.TeaOrderTeas
             }).ToList();
 
             return viewModels;
+        }
+
+        public List<Tea> GetTeas()
+        {
+            return _repo.GetTeas();
         }
     }
 }

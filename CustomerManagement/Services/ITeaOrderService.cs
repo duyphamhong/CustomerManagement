@@ -14,5 +14,6 @@ namespace CustomerManagement.Services
         bool EditOrder(TeaOrder customer);
         bool AddOrder(TeaOrderViewModel customer);
         bool DeleteOrder(string id);
+        List<Tea> GetTeas();
     }
 }

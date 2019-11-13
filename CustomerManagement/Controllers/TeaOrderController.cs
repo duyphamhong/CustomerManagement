@@ -24,6 +24,12 @@ namespace CustomerManagement.Controllers
             return View(a);
         }
 
+        public IActionResult OrdersByCustomer(string Id)
+        {
+
+            return View();
+        }
+
         public IActionResult Create()
         {
             TeaOrderViewModel model = new TeaOrderViewModel();
@@ -32,6 +38,7 @@ namespace CustomerManagement.Controllers
                 Value = c.Id.ToString(),
                 Text = c.Name
             }).ToList();
+            model.Teas = _orderService.GetTeas().Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name }).ToList();
 
             return View(model);
         }
@@ -40,6 +47,12 @@ namespace CustomerManagement.Controllers
         {
             _orderService.AddOrder(model);
             return Redirect("Index");
+        }
+
+        public IActionResult Detail(string id)
+        {
+
+            return View();
         }
     }
 }

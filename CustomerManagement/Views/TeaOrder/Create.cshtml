@@ -19,8 +19,15 @@
         <input asp-for="TotalPrice" class="form-control">
     </div>
     <div class="form-group">
+        <label>Customer :</label>
         <select asp-for="CustomerId"
-                asp-items="Model.CustomerSelections">
+                asp-items="Model.CustomerSelections" class="form-control">
+            <option>Please select one customer</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Products :</label>
+        <select class="form-control" id="TeaIds" multiple="multiple" asp-items="Model.Teas" asp-for="TeaIds" name="TeaIds">
             <option>Please select one customer</option>
         </select>
     </div>

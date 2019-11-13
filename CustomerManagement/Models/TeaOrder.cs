@@ -13,5 +13,7 @@ namespace CustomerManagement.Models
 
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
+
+        public IList<TeaOrderTea> TeaOrderTeas { get; set; }
     }
 }

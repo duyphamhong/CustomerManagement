@@ -13,5 +13,6 @@ namespace CustomerManagement.Repositories
         bool EditOrder(TeaOrder order);
         bool AddOrder(TeaOrder order);
         bool DeleteOrder(string id);
+        List<Tea> GetTeas();
     }
 }
