@@ -3,3 +3,6 @@
 ################################################################################
 
 /CustomerManagement/.vs/CustomerManagement
+/CustomerManagement/bin/Debug/netcoreapp3.0
+/CustomerManagement/obj
+/CustomerManagement/CustomerManagement.csproj.user

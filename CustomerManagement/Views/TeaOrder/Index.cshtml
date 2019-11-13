@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CustomerManagement.ViewModels.TeaOrderViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+<div>
+    <h1>TeaOrder</h1>
+
+    <hr />
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    CustomerName
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalPrice)
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="View" asp-route-id="@item.Id">Details</a> |
+                        <a @*asp-action="Delete" asp-route-id="@item.Id"*@ href="#myModal" data-toggle="modal" id="deleteButton" data-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
