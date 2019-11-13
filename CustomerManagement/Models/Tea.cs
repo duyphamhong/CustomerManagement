@@ -8,7 +8,9 @@ namespace CustomerManagement.Models
     public class Tea : BaseModel
     {
         public string Name { get; set; }
-        public string Price { get; set; }
-        public string Qauntity { get; set; }
+        public double Price { get; set; }
+        public int Quantity { get; set; }
+
+        public IList<TeaOrderTea> TeaOrderTeas { get; set; }
     }
 }

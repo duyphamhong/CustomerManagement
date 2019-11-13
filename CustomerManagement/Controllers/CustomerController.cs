@@ -42,5 +42,11 @@ namespace CustomerManagement.Controllers
             _service.DeleteCustomer(id);
             return RedirectToAction("Index");
         }
+
+        public IActionResult ListOrderByCustomer(string id)
+        {
+            Customer customer = _service.GetCustomerById(id);
+            return View(customer);
+        }
     }
 }

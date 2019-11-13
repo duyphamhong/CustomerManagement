@@ -1,5 +1,6 @@
 ﻿using CustomerManagement.Data;
 using CustomerManagement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,7 +76,7 @@ namespace CustomerManagement.Repositories
             try
             {
 
-                var listCustomer = _context.Customers.FirstOrDefault(x => x.Id == new Guid(id));
+                var listCustomer = _context.Customers.Include(x => x.Orders).FirstOrDefault(x => x.Id == new Guid(id));
                 return listCustomer;
             }
             catch (Exception e)

@@ -5,15 +5,13 @@
 }
 
 
-
-
 <div>
-    <h1>TeaOrder</h1>
+    <h1>TeaOrder by customer</h1> 
 
     <hr />
-    <p>
+    @*<p>
         <a asp-action="Create">Create New</a>
-    </p>
+    </p>*@
     <table class="table">
         <thead>
             <tr>
@@ -24,11 +22,8 @@
                     CustomerName
                 </th>
                 <th>
-                    Teas
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.TotalPrice)
-                </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -40,12 +35,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Customer.Name)
-                    </td>
-                    <td>
-                        @foreach (var item2 in item.TeaOrderTeas)
-                        {
-                            @Html.DisplayFor(modelItem => item2.Tea.Name) <br />
-                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.TotalPrice)
