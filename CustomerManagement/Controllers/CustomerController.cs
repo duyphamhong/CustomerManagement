@@ -28,6 +28,10 @@ namespace CustomerManagement.Controllers
 
         public IActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Create", customer);
+            }
             _service.AddCustomer(customer);
             return Redirect("Index");
         }
