@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using CustomerManagement.Models;
 using CustomerManagement.Services;
+using CustomerManagement.Statics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerManagement.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "InternalUser")]
     public class CustomerController : Controller
     {
         private readonly ICustomerService _service;
@@ -24,7 +25,7 @@ namespace CustomerManagement.Controllers
             return View(listCustomer);
         }
 
-        [Authorize(Roles = "InternalUser1")]
+        [Authorize(Policy = Permissions.CreateCustomer)]
         public IActionResult Create()
         {
             return View();
@@ -40,14 +41,14 @@ namespace CustomerManagement.Controllers
             return Redirect("Index");
         }
 
-        [Authorize(Roles = "InternalUser1")]
+        [Authorize(Roles = "InternalUser")]
         public IActionResult View(string id)
         {
             Customer customer = _service.GetCustomerById(id);
             return View(customer);
         }
 
-        [Authorize(Roles = "InternalUser1")]
+        [Authorize(Policy = Permissions.DeleteCustomer)]
         public IActionResult Delete(string id)
         {
             _service.DeleteCustomer(id);

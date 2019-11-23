@@ -16,6 +16,7 @@ using CustomerManagement.Services;
 using CustomerManagement.Repositories;
 using AutoMapper;
 using CustomerManagement.Models;
+using CustomerManagement.Statics;
 
 namespace CustomerManagement
 {
@@ -37,6 +38,13 @@ namespace CustomerManagement
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Permissions.CreateCustomer, policy => policy.RequireClaim(Permissions.CreateCustomer, Permissions.CreateCustomer));
+                options.AddPolicy(Permissions.EditCustomer, policy => policy.RequireClaim(Permissions.EditCustomer, Permissions.EditCustomer));
+                options.AddPolicy(Permissions.DeleteCustomer, policy => policy.RequireClaim(Permissions.DeleteCustomer, Permissions.DeleteCustomer));
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
