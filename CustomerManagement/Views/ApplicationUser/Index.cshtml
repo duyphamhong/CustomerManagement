@@ -1,0 +1,82 @@
+﻿@using CustomerManagement.ViewModels
+@model IEnumerable<CustomerManagement.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        @*$(document).on("click", "#editRoleButton", function () {
+            var passedID = $(this).data('id');
+            if (passedID != undefined) {
+                window.location.href = '@Url.Action("CreateOrEdit", "ApplicationRole")' + '/' + passedID;
+            }
+        });*@
+         $(function () {
+            // boostrap 4 load modal example from docs
+            $('#modal-container').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var url = button.attr("href");
+                var modal = $(this);
+                // note that this will replace the content of modal-content ever time the modal is opened
+                modal.find('.modal-content').load(url);
+            });
+        });
+    </script>
+}
+
+<div>
+    <h1>User management</h1>
+    <hr />
+    <p>
+        <a asp-action="CreateOrEdit" data-toggle="modal" data-target="#modal-container">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Action
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    <a asp-action="CreateOrEdit" asp-route-id="@item.Id" data-toggle="modal" data-target="#modal-container">Edit</a> |
+                    <a asp-action="DeleteRole" asp-route-id="@item.Id" data-target="#modal-container" data-toggle="modal">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>

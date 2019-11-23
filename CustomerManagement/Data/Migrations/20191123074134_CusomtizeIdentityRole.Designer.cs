@@ -4,56 +4,22 @@ using CustomerManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomerManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191123074134_CusomtizeIdentityRole")]
+    partial class CusomtizeIdentityRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CustomerManagement.Models.ApplicationRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IPAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles");
-                });
 
             modelBuilder.Entity("CustomerManagement.Models.ApplicationUser", b =>
                 {
@@ -196,24 +162,24 @@ namespace CustomerManagement.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2dee6a0f-0224-45b2-bd61-613b5cb2b055"),
-                            CreatedDate = new DateTime(2019, 11, 23, 7, 45, 4, 728, DateTimeKind.Utc).AddTicks(3472),
+                            Id = new Guid("40b78f81-4984-4463-8b75-dc6903fe0bc5"),
+                            CreatedDate = new DateTime(2019, 11, 23, 7, 41, 33, 723, DateTimeKind.Utc).AddTicks(2758),
                             Name = "StrawberryTea",
                             Price = 50000.0,
                             Quantity = 150
                         },
                         new
                         {
-                            Id = new Guid("2041dc76-58a1-4b0e-b730-750e0475d758"),
-                            CreatedDate = new DateTime(2019, 11, 23, 7, 45, 4, 730, DateTimeKind.Utc).AddTicks(6516),
+                            Id = new Guid("1b15e66a-4681-4336-b54f-cecc89cc037c"),
+                            CreatedDate = new DateTime(2019, 11, 23, 7, 41, 33, 725, DateTimeKind.Utc).AddTicks(4148),
                             Name = "PeachTea",
                             Price = 45000.0,
                             Quantity = 100
                         },
                         new
                         {
-                            Id = new Guid("5ffbffd6-59de-4508-86eb-b920115c4478"),
-                            CreatedDate = new DateTime(2019, 11, 23, 7, 45, 4, 730, DateTimeKind.Utc).AddTicks(6719),
+                            Id = new Guid("31cbff75-1b2f-40f6-9946-f2c985e4e858"),
+                            CreatedDate = new DateTime(2019, 11, 23, 7, 41, 33, 725, DateTimeKind.Utc).AddTicks(4350),
                             Name = "LycheeTea",
                             Price = 55000.0,
                             Quantity = 75
@@ -270,6 +236,33 @@ namespace CustomerManagement.Data.Migrations
                     b.HasIndex("TeaId");
 
                     b.ToTable("TeaOrderTeas");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -402,7 +395,7 @@ namespace CustomerManagement.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("CustomerManagement.Models.ApplicationRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -429,7 +422,7 @@ namespace CustomerManagement.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("CustomerManagement.Models.ApplicationRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
