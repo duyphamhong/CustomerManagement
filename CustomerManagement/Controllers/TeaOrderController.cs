@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using CustomerManagement.Services;
 using CustomerManagement.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CustomerManagement.Controllers
 {
+    [Authorize]
     public class TeaOrderController : Controller
     {
         private readonly ICustomerService _service;
@@ -18,6 +20,7 @@ namespace CustomerManagement.Controllers
             _service = service;
             _orderService = orderService;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var a = _orderService.GetOrders();
@@ -30,6 +33,7 @@ namespace CustomerManagement.Controllers
             return View();
         }
 
+        [Authorize(Roles = "InternalUser1")]
         public IActionResult Create()
         {
             TeaOrderViewModel model = new TeaOrderViewModel();

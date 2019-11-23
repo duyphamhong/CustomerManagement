@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using CustomerManagement.Services;
 using CustomerManagement.Repositories;
 using AutoMapper;
+using CustomerManagement.Models;
 
 namespace CustomerManagement
 {
@@ -33,8 +34,9 @@ namespace CustomerManagement
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -65,7 +67,7 @@ namespace CustomerManagement
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
 

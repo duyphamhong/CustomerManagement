@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using CustomerManagement.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Tea> Teas { get; set; }
