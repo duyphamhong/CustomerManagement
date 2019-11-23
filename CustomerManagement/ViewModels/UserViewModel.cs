@@ -32,5 +32,8 @@ namespace CustomerManagement.ViewModels
         public string ApplicationRoleId { get; set; }
 
         public bool EditMode { get; set; }
+
+        [Display(Name = "User Claims")]
+        public List<SelectListItem> UserClaims { get; set; }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CustomerManagement.Models;
+using CustomerManagement.Statics;
 using CustomerManagement.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -52,6 +54,13 @@ namespace CustomerManagement.Controllers
                 Text = r.Name,
                 Value = r.Id
             }).ToList();
+
+            model.UserClaims = ClaimData.UserClaims.Select(c => new SelectListItem
+            {
+                Text = c,
+                Value = c
+            }).ToList();
+
             if (!String.IsNullOrEmpty(id))
             {
                 ApplicationUser user = await userManager.FindByIdAsync(id);
@@ -62,6 +71,15 @@ namespace CustomerManagement.Controllers
                     model.Email = user.Email;
                     model.EditMode = true;
                     model.ApplicationRoleId = roleManager.Roles.Single(r => r.Name == userManager.GetRolesAsync(user).Result.Single()).Id;
+
+                    //get claim
+                    var claims = await userManager.GetClaimsAsync(user);
+                    model.UserClaims = ClaimData.UserClaims.Select(c => new SelectListItem
+                    {
+                        Text = c,
+                        Value = c,
+                        Selected = claims.Any(x => x.Value == c)
+                    }).ToList();
                 }
             }
             return PartialView("_CreateOrEdit", model);
@@ -84,6 +102,7 @@ namespace CustomerManagement.Controllers
                     Email = model.Email,
                     UserName = model.Email
                 };
+                
                 IdentityResult result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -95,6 +114,12 @@ namespace CustomerManagement.Controllers
                         {
                             return RedirectToAction("Index");
                         }
+                    }
+
+                    List<SelectListItem> userClaims = model.UserClaims.Where(c => c.Selected).ToList();
+                    foreach (var claim in userClaims)
+                    {
+                        await userManager.AddClaimAsync(user, new Claim(claim.Value, claim.Value));
                     }
                 }
             }
@@ -126,6 +151,15 @@ namespace CustomerManagement.Controllers
                                     }
                                 }
                             }
+                        }
+
+                        var claims = await userManager.GetClaimsAsync(user);
+                        await userManager.RemoveClaimsAsync(user, claims);
+
+                        List<SelectListItem> userClaims = model.UserClaims.Where(c => c.Selected).ToList();
+                        foreach (var claim in userClaims)
+                        {
+                            await userManager.AddClaimAsync(user, new Claim(claim.Value, claim.Value));
                         }
                     }
                 }
