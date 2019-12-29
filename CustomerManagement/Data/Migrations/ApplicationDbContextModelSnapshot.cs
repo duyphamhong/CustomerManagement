@@ -131,6 +131,87 @@ namespace CustomerManagement.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("CustomerManagement.Models.Car", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CarIdentity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("CustomerManagement.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("da729730-ddeb-446c-a0dc-370d12ab2315"),
+                            CreatedDate = new DateTime(2019, 12, 29, 14, 14, 23, 365, DateTimeKind.Local).AddTicks(2634),
+                            Name = "Car"
+                        },
+                        new
+                        {
+                            Id = new Guid("4abf397f-063b-4a82-94ef-cdbca7e63267"),
+                            CreatedDate = new DateTime(2019, 12, 29, 14, 14, 23, 367, DateTimeKind.Local).AddTicks(117),
+                            Name = "Bycicle"
+                        },
+                        new
+                        {
+                            Id = new Guid("2f7e17f3-a11b-405a-8df9-1124a9763287"),
+                            CreatedDate = new DateTime(2019, 12, 29, 14, 14, 23, 367, DateTimeKind.Local).AddTicks(314),
+                            Name = "Motor"
+                        });
+                });
+
             modelBuilder.Entity("CustomerManagement.Models.Customer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -160,6 +241,81 @@ namespace CustomerManagement.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("CustomerManagement.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NumberOfOrder")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("CustomerManagement.Models.ProductOrder", b =>
+                {
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductOrder");
+                });
+
+            modelBuilder.Entity("CustomerManagement.Models.Resident", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Residents");
                 });
 
             modelBuilder.Entity("CustomerManagement.Models.Tea", b =>
@@ -196,24 +352,24 @@ namespace CustomerManagement.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2dee6a0f-0224-45b2-bd61-613b5cb2b055"),
-                            CreatedDate = new DateTime(2019, 11, 23, 7, 45, 4, 728, DateTimeKind.Utc).AddTicks(3472),
+                            Id = new Guid("cd815fa5-e66f-46ad-8539-6a7bec03fb12"),
+                            CreatedDate = new DateTime(2019, 12, 29, 14, 14, 23, 367, DateTimeKind.Local).AddTicks(7816),
                             Name = "StrawberryTea",
                             Price = 50000.0,
                             Quantity = 150
                         },
                         new
                         {
-                            Id = new Guid("2041dc76-58a1-4b0e-b730-750e0475d758"),
-                            CreatedDate = new DateTime(2019, 11, 23, 7, 45, 4, 730, DateTimeKind.Utc).AddTicks(6516),
+                            Id = new Guid("0afa047f-2c0d-4290-9a41-066ad0b382d5"),
+                            CreatedDate = new DateTime(2019, 12, 29, 14, 14, 23, 367, DateTimeKind.Local).AddTicks(9335),
                             Name = "PeachTea",
                             Price = 45000.0,
                             Quantity = 100
                         },
                         new
                         {
-                            Id = new Guid("5ffbffd6-59de-4508-86eb-b920115c4478"),
-                            CreatedDate = new DateTime(2019, 11, 23, 7, 45, 4, 730, DateTimeKind.Utc).AddTicks(6719),
+                            Id = new Guid("f8c0ec45-e5f9-45af-80c0-4f7dd1fd8c4d"),
+                            CreatedDate = new DateTime(2019, 12, 29, 14, 14, 23, 367, DateTimeKind.Local).AddTicks(9388),
                             Name = "LycheeTea",
                             Price = 55000.0,
                             Quantity = 75
@@ -226,14 +382,14 @@ namespace CustomerManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -252,7 +408,7 @@ namespace CustomerManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("AID");
 
                     b.ToTable("TeaOrders");
                 });
@@ -270,6 +426,94 @@ namespace CustomerManagement.Data.Migrations
                     b.HasIndex("TeaId");
 
                     b.ToTable("TeaOrderTeas");
+                });
+
+            modelBuilder.Entity("CustomerManagement.Models.Ticket", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMonthlyPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("PaidUntilMonth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ParkingStartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("ResidentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("ResidentId");
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("CustomerManagement.Repositories.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -376,11 +620,26 @@ namespace CustomerManagement.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CustomerManagement.Models.ProductOrder", b =>
+                {
+                    b.HasOne("CustomerManagement.Models.Order", "Order")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CustomerManagement.Repositories.Product", "Product")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CustomerManagement.Models.TeaOrder", b =>
                 {
                     b.HasOne("CustomerManagement.Models.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("AID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -396,6 +655,30 @@ namespace CustomerManagement.Data.Migrations
                     b.HasOne("CustomerManagement.Models.TeaOrder", "TeaOrder")
                         .WithMany("TeaOrderTeas")
                         .HasForeignKey("TeaOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CustomerManagement.Models.Ticket", b =>
+                {
+                    b.HasOne("CustomerManagement.Models.Car", "Car")
+                        .WithMany("Tickets")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CustomerManagement.Models.Resident", "Resident")
+                        .WithMany("Tickets")
+                        .HasForeignKey("ResidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CustomerManagement.Repositories.Product", b =>
+                {
+                    b.HasOne("CustomerManagement.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

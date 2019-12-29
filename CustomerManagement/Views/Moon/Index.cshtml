@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CustomerManagement.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+    var a = 1;
+}
+
+<h1>Hello!</h1>
+
+<p>
+    @foreach (var item in Model)
+    { 
+        <div> I'm @item.Name - I'm @item.Age <a asp-controller="Moon" asp-action="Detail" asp-route-name="@item.Name" > Click here!  </a></div>
+    }
+</p>
+

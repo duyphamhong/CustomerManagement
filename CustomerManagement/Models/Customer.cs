@@ -1,6 +1,7 @@
 ﻿using CustomerManagement.Validations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace CustomerManagement.Models
     {
         [Required]
         [StringLength(20)]
-        [NameValidation("D")]
+        [DisplayName("Ten")]
         public string Name { get; set; }
         [Required]
         [Range(18,40)]

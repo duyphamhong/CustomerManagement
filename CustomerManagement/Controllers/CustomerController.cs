@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerManagement.Controllers
 {
-    [Authorize(Roles = "InternalUser")]
     public class CustomerController : Controller
     {
         private readonly ICustomerService _service;
@@ -21,7 +20,8 @@ namespace CustomerManagement.Controllers
 
         public IActionResult Index()
         {
-            var listCustomer = _service.GetCustomers();
+            var listCustomer = new List<Customer>();
+               // _service.GetCustomers();
             return View(listCustomer);
         }
 

@@ -41,7 +41,9 @@ namespace CustomerManagement.Repositories
 
         public List<TeaOrder> GetOrders()
         {
-            return _context.TeaOrders.Include(t => t.Customer).Include(t => t.TeaOrderTeas).ThenInclude(to => to.Tea).ToList();
+            return _context.TeaOrders.Include(t => t.Customer)
+                .Include(t => t.TeaOrderTeas)
+                .ThenInclude(to => to.Tea).ToList();
         }
 
         public List<Tea> GetTeas()

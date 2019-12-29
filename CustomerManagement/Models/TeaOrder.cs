@@ -11,7 +11,7 @@ namespace CustomerManagement.Models
         public DateTime OrderDate { get; set; }
         public double TotalPrice { get; set; }
 
-        public Guid CustomerId { get; set; }
+        public Guid AID { get; set; }
         public Customer Customer { get; set; }
 
         public IList<TeaOrderTea> TeaOrderTeas { get; set; }

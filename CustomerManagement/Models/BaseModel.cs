@@ -11,7 +11,7 @@ namespace CustomerManagement.Models
         public BaseModel()
         {
             Id = Guid.NewGuid();
-            CreatedDate = DateTime.UtcNow;
+            CreatedDate = DateTime.Now;
         }
         [Key]
         public Guid Id { get; set; }

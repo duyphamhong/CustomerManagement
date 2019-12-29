@@ -35,6 +35,7 @@ namespace CustomerManagement
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -55,6 +56,14 @@ namespace CustomerManagement
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ITeaOrderService, TeaOrderService>();
             services.AddTransient<ITeaOrderRepository, TeaOrderRepository>();
+            services.AddTransient<ICarParkingRepository, CarParkingRepository>();
+            services.AddTransient<ICarParkingService, CarParkingService>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,17 +84,19 @@ namespace CustomerManagement
             app.UseStaticFiles();
 
             app.UseRouting();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                 name: "default",
+                 pattern: "{controller=Product}/{action=Index}/{id?}");
             });
+
         }
     }
 }
