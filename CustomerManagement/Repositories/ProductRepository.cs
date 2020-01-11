@@ -45,5 +45,17 @@ namespace CustomerManagement.Repositories
         {
             return _context.Products.Include(x=>x.Category).FirstOrDefault(x => x.Id == id);
         }
+
+        public List<Product> GetProducts(int numberOfQuantity)
+        {
+            try
+            {
+                return _context.Products.Where(x=>x.Quantity >= numberOfQuantity).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
     }
 }

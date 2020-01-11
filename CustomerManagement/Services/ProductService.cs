@@ -61,5 +61,23 @@ namespace CustomerManagement.Services
             };
             return viewModel;
         }
+
+        public List<ProductViewModel> GetProducts(int numberOfQuantity)
+        {
+            var products = _repo.GetProducts(numberOfQuantity);
+            List<ProductViewModel> viewModels = new List<ProductViewModel>();
+            foreach (var product in products)
+            {
+                viewModels.Add(new ProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Quantity = product.Quantity,
+                    Price = product.Price,
+                    TotalPrice = CalculateTotalPrices(product)
+                });
+            }
+            return viewModels;
+        }
     }
 }

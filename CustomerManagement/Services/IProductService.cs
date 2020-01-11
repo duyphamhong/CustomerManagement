@@ -12,6 +12,7 @@ namespace CustomerManagement.Services
         void AddProduct(ProductViewModel product);
 
         List<ProductViewModel> GetAllProducts();
+        List<ProductViewModel> GetProducts(int numberOfQuantity);
 
         double CalculateTotalPrices(Product product);
         ProductViewModel GetProduct(Guid id);

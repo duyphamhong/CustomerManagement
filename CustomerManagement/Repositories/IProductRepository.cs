@@ -10,6 +10,7 @@ namespace CustomerManagement.Repositories
         void AddProduct(Product product);
 
         List<Product> GetAllProducts();
+        List<Product> GetProducts(int numberOfQuantity);
         Product GetProduct(Guid id);
     }
 }

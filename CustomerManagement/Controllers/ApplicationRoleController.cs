@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerManagement.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ApplicationRoleController : Controller
     {
         private readonly RoleManager<ApplicationRole> roleManager;

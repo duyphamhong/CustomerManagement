@@ -13,6 +13,7 @@ namespace CustomerManagement.Models
         [Required]
         [StringLength(20)]
         [DisplayName("Ten")]
+        [NameValidation("d")]
         public string Name { get; set; }
         [Required]
         [Range(18,40)]

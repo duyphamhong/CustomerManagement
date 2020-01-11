@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CustomerManagement.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;

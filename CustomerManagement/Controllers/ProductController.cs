@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomerManagement.Services;
+using CustomerManagement.Statics;
 using CustomerManagement.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerManagement.Controllers
@@ -17,12 +19,15 @@ namespace CustomerManagement.Controllers
             _service = service;
             _categoryService = categoryService;
         }
+
+       // [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var listProducts = _service.GetAllProducts();
             return View(listProducts);
         }
 
+        [Authorize(Policy = Permissions.CreateCustomer)]
         public IActionResult Create()
         {
             ProductViewModel model = new ProductViewModel();
@@ -40,6 +45,13 @@ namespace CustomerManagement.Controllers
         {
             var product = _service.GetProduct(id);
             return View(product);
+        }
+
+        [HttpGet]
+        public Task<List<ProductViewModel>> Products(int numberOfQuantity)
+        {
+            var listProducts = _service.GetProducts(numberOfQuantity);
+            return Task.FromResult(listProducts);
         }
     }
 }

@@ -17,6 +17,10 @@ using CustomerManagement.Repositories;
 using AutoMapper;
 using CustomerManagement.Models;
 using CustomerManagement.Statics;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace CustomerManagement
 {
@@ -39,12 +43,46 @@ namespace CustomerManagement
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+            });
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(Permissions.CreateCustomer, policy => policy.RequireClaim(Permissions.CreateCustomer, Permissions.CreateCustomer));
                 options.AddPolicy(Permissions.EditCustomer, policy => policy.RequireClaim(Permissions.EditCustomer, Permissions.EditCustomer));
                 options.AddPolicy(Permissions.DeleteCustomer, policy => policy.RequireClaim(Permissions.DeleteCustomer, Permissions.DeleteCustomer));
             });
+
+            // ===== Add Jwt Authentication ========
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                })
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.SaveToken = true;
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = Configuration["JwtIssuer"],
+                        ValidAudience = Configuration["JwtIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
+                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                    };
+                });
 
             services.AddControllersWithViews();
             services.AddRazorPages();

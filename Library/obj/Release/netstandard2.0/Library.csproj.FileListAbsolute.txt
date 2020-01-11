@@ -1,0 +1,8 @@
+D:\Trainning\Source\Git\CM\CustomerManagement\Library\bin\Release\netstandard2.0\Library.deps.json
+D:\Trainning\Source\Git\CM\CustomerManagement\Library\bin\Release\netstandard2.0\Library.dll
+D:\Trainning\Source\Git\CM\CustomerManagement\Library\bin\Release\netstandard2.0\Library.pdb
+D:\Trainning\Source\Git\CM\CustomerManagement\Library\obj\Release\netstandard2.0\Library.csprojAssemblyReference.cache
+D:\Trainning\Source\Git\CM\CustomerManagement\Library\obj\Release\netstandard2.0\Library.AssemblyInfoInputs.cache
+D:\Trainning\Source\Git\CM\CustomerManagement\Library\obj\Release\netstandard2.0\Library.AssemblyInfo.cs
+D:\Trainning\Source\Git\CM\CustomerManagement\Library\obj\Release\netstandard2.0\Library.dll
+D:\Trainning\Source\Git\CM\CustomerManagement\Library\obj\Release\netstandard2.0\Library.pdb
